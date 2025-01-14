@@ -3,10 +3,12 @@
   become: yes
   roles:
     - prometheus
+    - alertmanager
     - node_exporter
 
 - name: Configure Grafana
   hosts: grafana
+  become: yes
   roles:
     - grafana
     - node_exporter
