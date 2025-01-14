@@ -6,10 +6,8 @@
   become: yes
 
 - name: Add Grafana APT repository
-  ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/grafana-archive-keyring.gpg] https://packages.grafana.com/oss/deb stable main"
-    state: present
-    filename: grafana
+  ansible.builtin.shell: |
+    echo "deb [signed-by=/usr/share/keyrings/grafana-archive-keyring.gpg] https://packages.grafana.com/oss/deb stable main" > /etc/apt/sources.list.d/grafana.list
   become: yes
 
 - name: Update APT cache

@@ -2,12 +2,16 @@
   ansible.builtin.get_url:
     url: https://github.com/prometheus/node_exporter/releases/download/v1.6.0/node_exporter-1.6.0.linux-amd64.tar.gz
     dest: /tmp/node_exporter.tar.gz
+  become: yes
 
 - name: Extract Node Exporter
   ansible.builtin.unarchive:
     src: /tmp/node_exporter.tar.gz
     dest: /usr/local/bin
     remote_src: true
+    extra_opts:
+      - --strip-components=1
+  become: yes
 
 - name: Create Node Exporter service
   ansible.builtin.copy:
@@ -25,14 +29,16 @@
 
       [Install]
       WantedBy=multi-user.target
-
+  become: yes
 
 - name: Reload systemd
   ansible.builtin.systemd:
     daemon_reload: true
+  become: yes
 
 - name: Start Node Exporter
   ansible.builtin.systemd:
     name: node_exporter
     state: started
     enabled: true
+  become: yes
