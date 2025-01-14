@@ -1,0 +1,12 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  receiver: slack
+
+receivers:
+  - name: slack
+    slack_configs:
+      - api_url: "{{ slack_webhook_url }}"
+        channel: "#alerts"
+        send_resolved: true

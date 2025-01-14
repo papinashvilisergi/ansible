@@ -1,0 +1,38 @@
+- name: Download Grafana GPG key
+  ansible.builtin.get_url:
+    url: https://packages.grafana.com/gpg.key
+    dest: /usr/share/keyrings/grafana-archive-keyring.gpg
+    mode: '0644'
+  become: yes
+
+- name: Add Grafana APT repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/grafana-archive-keyring.gpg] https://packages.grafana.com/oss/deb stable main"
+    state: present
+    filename: grafana
+  become: yes
+
+- name: Update APT cache
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: yes
+
+- name: Install Grafana
+  ansible.builtin.apt:
+    name: grafana
+    state: present
+  become: yes
+
+- name: Deploy Grafana configuration
+  ansible.builtin.template:
+    src: grafana.ini.j2
+    dest: /etc/grafana/grafana.ini
+  become: yes
+
+- name: Ensure Grafana service is running
+  ansible.builtin.systemd:
+    name: grafana-server
+    state: started
+    enabled: true
+  become: yes
