@@ -1,8 +1,9 @@
 # Ansible Automation for Monitoring Stack
 
 This repository contains Ansible playbooks and roles to set up a complete monitoring stack, including Prometheus, Alertmanager, Grafana, Node Exporter, and Nginx Exporter, on two VMs.
+ეს რეპოზიტორია შეიცავს ანსიბლის ფლეიბუქებს და როლებს, რომლის მეშვეობითაც შესაძლებელია მონიტორინგის სტეკის აწევა, რომელიც მოიწავს, პრომეთეუსს, ალერტმენეჯერს, გრაფანას, ნოუდ ექსპორტერს და nginx ექსპორტერს, ორ ვირტუალურ მანქანას შორის
 
-## Project Overview
+## პროექტის მიმოხილვა
 
 1. **VM1 (172.31.100.48)**:
    - Prometheus
